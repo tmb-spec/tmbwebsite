@@ -22,6 +22,17 @@ export default function App() {
       {/* Header */}
       <Header />
 
+      {/* Über uns */}
+      <section id="about" className="max-w-4xl mx-auto py-16 px-4">
+        <h3 className="text-3xl font-bold mb-6 text-green-700">Über uns</h3>
+        <p className="mb-4">
+          Wir sind eine Gruppe leidenschaftlicher Bergsteiger & Outdoor-Enthusiasten, die gemeinsam die Natur erleben,
+          wandern, kochen und unvergessliche Momente teilen. Unser Name steht für das,
+          was wir auf jeder Tour dabeihaben: eine Tasse, ein Messer und jede Menge
+          Abenteuerlust.
+        </p>
+      </section>
+
       {/* Gallery */}
       <section id="gallery" className="max-w-6xl mx-auto py-16 px-4">
         <h3 className="text-3xl font-bold mb-6 text-green-700">Galerie</h3>
