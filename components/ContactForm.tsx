@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 
-export default function ContactForm() {
+interface ContactFormProps {
+  onSuccess: () => void;
+}
+
+export default function ContactForm({ onSuccess }: ContactFormProps) {
   const [formData, setFormData] = useState({ name: "", email: "", message: "" });
-  const [showSuccess, setShowSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -12,17 +16,24 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData)
-    });
-    if (res.ok) {
-      setShowSuccess(true);
-      setFormData({ name: "", email: "", message: "" });
-      setTimeout(() => setShowSuccess(false), 3500);
-    } else {
+    setLoading(true);
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (res.ok) {
+        onSuccess();
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        alert("Fehler beim Senden. Bitte probiere es nochmal.");
+      }
+    } catch {
       alert("Fehler beim Senden. Bitte probiere es nochmal.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -31,39 +42,39 @@ export default function ContactForm() {
       <input
         type="text"
         name="name"
-        value={formData.name}
-        onChange={handleChange}
         placeholder="Dein Name"
         required
+        value={formData.name}
+        onChange={handleChange}
         className="p-4 border rounded-2xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400 transition"
       />
       <input
         type="email"
         name="email"
-        value={formData.email}
-        onChange={handleChange}
         placeholder="Deine E-Mail"
         required
+        value={formData.email}
+        onChange={handleChange}
         className="p-4 border rounded-2xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400 transition"
       />
       <textarea
         name="message"
-        value={formData.message}
-        onChange={handleChange}
         placeholder="Deine Nachricht"
         rows={4}
         required
+        value={formData.message}
+        onChange={handleChange}
         className="p-4 border rounded-2xl shadow-inner focus:outline-none focus:ring-2 focus:ring-green-400 transition"
-      />
+      ></textarea>
       <button
         type="submit"
-        className="bg-green-700 text-white py-3 rounded-2xl hover:bg-green-800 transform hover:-translate-y-1 transition-all duration-300"
+        disabled={loading}
+        className={`bg-green-700 text-white py-3 rounded-2xl transform transition-all duration-300 ${
+          loading ? "opacity-60 cursor-not-allowed" : "hover:bg-green-800 hover:-translate-y-1"
+        }`}
       >
-        Absenden
+        {loading ? "Senden..." : "Absenden"}
       </button>
-      {showSuccess && (
-        <p className="text-green-700 font-bold mt-2">Danke für deine Nachricht!</p>
-      )}
     </form>
   );
 }
