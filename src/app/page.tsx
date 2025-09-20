@@ -51,7 +51,7 @@ const [images] = useState([
           </motion.h2>
 
           <p className="text-xl md:text-2xl max-w-4xl mx-auto md:mx-0 drop-shadow-md">
-            Die Berge seien hoch, die Messer scharf und die Tassen tief!einfach mal Mensch sein.
+            Die Berge seien hoch, die Messer scharf und die Tassen tief!
           </p>
 
           <p className="mt-4 text-base md:text-lg max-w-5xl mx-auto md:mx-0">
@@ -77,38 +77,67 @@ const [images] = useState([
         key={i}
         src={img}
         alt={`Bild ${i + 1}`}
-        className="rounded-xl w-full h-72 object-cover transform transition-transform duration-500 hover:scale-150"
+        className="rounded-xl w-full h-96 object-cover transform transition-transform duration-500 hover:scale-150"
       />
     ))}
   </div>
 </section>
 
-      {/* Team / Steckbriefe */}
-      <section id="team" className="max-w-6xl mx-auto py-16 px-4">
-        <h3 className="text-3xl font-bold mb-8 text-green-700 text-center">Unser Team</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-          {/* Steckbrief 1 */}
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center">
-            <img src="/member1.jpg" alt="Mitglied 1" className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"/>
-            <h4 className="font-bold text-xl mb-2">Name 1</h4>
-            <p className="text-gray-700 text-sm">Kurze Beschreibung / Rolle</p>
-          </div>
+{/* Team / Steckbriefe */}
+<section id="team" className="max-w-6xl mx-auto py-16 px-4">
+  <h3 className="text-3xl font-bold mb-8 text-green-700 text-center">Unser Team</h3>
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    
+    {/* Steckbrief 1 */}
+    <div className="bg-white p-6 rounded-2xl shadow-md text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+      <img
+        src="/member1.jpg"
+        alt="Mitglied 1"
+        className="w-32 h-32 mx-auto rounded-full mb-4 object-cover border-4 border-green-700"
+      />
+      <h4 className="font-bold text-2xl mb-1">Name 1</h4>
+      <p className="text-gray-500 text-sm mb-2">Rolle 1</p>
+      <p className="text-gray-700 text-sm">Kurze Beschreibung über das Mitglied, seine Aufgaben oder Interessen.</p>
+      <div className="flex justify-center gap-4 mt-3">
+        <a href="#" className="text-green-700 hover:text-green-900">🐦</a>
+        <a href="#" className="text-green-700 hover:text-green-900">💼</a>
+      </div>
+    </div>
 
-          {/* Steckbrief 2 */}
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center">
-            <img src="/member2.jpg" alt="Mitglied 2" className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"/>
-            <h4 className="font-bold text-xl mb-2">Name 2</h4>
-            <p className="text-gray-700 text-sm">Kurze Beschreibung / Rolle</p>
-          </div>
+    {/* Steckbrief 2 */}
+    <div className="bg-white p-6 rounded-2xl shadow-md text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+      <img
+        src="/member2.jpg"
+        alt="Mitglied 2"
+        className="w-32 h-32 mx-auto rounded-full mb-4 object-cover border-4 border-green-700"
+      />
+      <h4 className="font-bold text-2xl mb-1">Name 2</h4>
+      <p className="text-gray-500 text-sm mb-2">Rolle 2</p>
+      <p className="text-gray-700 text-sm">Kurze Beschreibung über das Mitglied, seine Aufgaben oder Interessen.</p>
+      <div className="flex justify-center gap-4 mt-3">
+        <a href="#" className="text-green-700 hover:text-green-900">🐦</a>
+        <a href="#" className="text-green-700 hover:text-green-900">💼</a>
+      </div>
+    </div>
 
-          {/* Steckbrief 3 */}
-          <div className="bg-white p-6 rounded-2xl shadow-md text-center">
-            <img src="/member3.jpg" alt="Mitglied 3" className="w-24 h-24 mx-auto rounded-full mb-4 object-cover"/>
-            <h4 className="font-bold text-xl mb-2">Name 3</h4>
-            <p className="text-gray-700 text-sm">Kurze Beschreibung / Rolle</p>
-          </div>
-        </div>
-      </section>
+    {/* Steckbrief 3 */}
+    <div className="bg-white p-6 rounded-2xl shadow-md text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl">
+      <img
+        src="/member3.jpg"
+        alt="Mitglied 3"
+        className="w-32 h-32 mx-auto rounded-full mb-4 object-cover border-4 border-green-700"
+      />
+      <h4 className="font-bold text-2xl mb-1">Ulf</h4>
+      <p className="text-gray-500 text-sm mb-2">CTO (proudly)</p>
+      <p className="text-gray-700 text-sm">Chat-gpt wars.</p>
+      <div className="flex justify-center gap-4 mt-3">
+        <a href="#" className="text-green-700 hover:text-green-900">🐦</a>
+        <a href="#" className="text-green-700 hover:text-green-900">💼</a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
       {/* Contact */}
       <section id="contact" className="max-w-4xl mx-auto py-16 px-4">
