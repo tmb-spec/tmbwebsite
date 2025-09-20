@@ -6,14 +6,14 @@ import ContactForm from "../../components/ContactForm";
 import Header from "../../components/Header";
 
 export default function App() {
-  const [images] = useState([
-    "https://deinserver.de/bild1.jpg",
-    "https://deinserver.de/bild2.jpg",
-    "https://deinserver.de/bild3.jpg",
-    "https://deinserver.de/bild4.jpg",
-    "https://deinserver.de/bild5.jpg",
-    "https://deinserver.de/bild6.jpg",
-  ]);
+const [images] = useState([
+  "/images/bild1.jpg",
+  "/images/bild2.jpg",
+  "/images/bild3.jpg",
+  "/images/bild4.jpg",
+  "/images/bild5.jpg",
+  "/images/bild6.jpg",
+]);
 
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -44,11 +44,11 @@ export default function App() {
             transition={{ duration: 1 }}
             className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg"
           >
-            Willkommen bei TMB
+            einfach mal Mensch sein.
           </motion.h2>
 
           <p className="text-xl md:text-2xl max-w-4xl mx-auto md:mx-0 drop-shadow-md">
-            Abenteuer, Freundschaft und einfach mal Mensch sein.
+            Die Berge seien hoch, die Messer scharf und die Tassen tief!einfach mal Mensch sein.
           </p>
 
           <p className="mt-4 text-base md:text-lg max-w-5xl mx-auto md:mx-0">
@@ -60,15 +60,6 @@ export default function App() {
             Unser Name steht für das, was wir auf jeder Tour dabeihaben: eine Tasse, ein Messer und jede Menge Abenteuerlust.
           </p>
 
-          {/* Button "Über uns" */}
-          <div className="mt-6">
-            <a
-              href="#team"
-              className="bg-white text-green-700 font-bold py-2 px-6 rounded-2xl hover:bg-green-100 transition"
-            >
-              Über uns
-            </a>
-          </div>
         </div>
       </section>
 
