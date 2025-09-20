@@ -5,20 +5,20 @@ import { motion } from "framer-motion";
 
 export default function App() {
   const [images] = useState([
-    "https://www.kindernetz.de/wissen/1653497599391%2Cwie-entstehen-berge-102~_v-16x9@2dM_-ad6791ade5eb8b5c935dd377130b903c4b5781d8.jpg",
-    "https://www.kindernetz.de/wissen/1653920856568%2Cwie-entstehen-berge-106~_v-16x9@2dM_-ad6791ade5eb8b5c935dd377130b903c4b5781d8.jpg",
+    "https://deinserver.de/bild1.jpg",
+    "https://deinserver.de/bild2.jpg",
     "https://deinserver.de/bild3.jpg",
     "https://deinserver.de/bild4.jpg",
     "https://deinserver.de/bild5.jpg",
     "https://deinserver.de/bild6.jpg"
   ]);
   const [showSuccess, setShowSuccess] = useState(false);
-  const formRef = useRef(null);
+  const formRef = useRef<HTMLFormElement | null>(null);
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault();
-  const form = formRef.current;
-  if (form) {
+    e.preventDefault();
+    const form = formRef.current;
+    if (form) {
       const formData = new FormData(form);
       fetch("/", {
         method: "POST",
@@ -27,7 +27,7 @@ export default function App() {
       })
         .then(() => {
           setShowSuccess(true);
-          form.reset();
+          (form as HTMLFormElement).reset();
           setTimeout(() => setShowSuccess(false), 3500);
         })
         .catch(() => alert("Fehler beim Senden. Bitte probiere es nochmal."));
