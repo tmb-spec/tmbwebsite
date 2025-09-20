@@ -15,10 +15,10 @@ export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
   const formRef = useRef(null);
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    const form = formRef.current;
-    if (form) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault();
+  const form = formRef.current;
+  if (form) {
       const formData = new FormData(form);
       fetch("/", {
         method: "POST",
