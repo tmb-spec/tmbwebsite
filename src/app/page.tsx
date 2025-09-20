@@ -95,9 +95,9 @@ const [images] = useState([
         alt="Mitglied 1"
         className="w-32 h-32 mx-auto rounded-full mb-4 object-cover border-4 border-green-700"
       />
-      <h4 className="font-bold text-2xl mb-1">Name 1</h4>
-      <p className="text-gray-500 text-sm mb-2">Rolle 1</p>
-      <p className="text-gray-700 text-sm">Kurze Beschreibung über das Mitglied, seine Aufgaben oder Interessen.</p>
+      <h4 className="font-bold text-2xl mb-1">Cle</h4>
+      <p className="text-gray-500 text-sm mb-2">Herr der Satzung / Schriftführer</p>
+      <p className="text-gray-700 text-sm">Bändiger der Worte & Wortdompteur</p>
       <div className="flex justify-center gap-4 mt-3">
         <a href="#" className="text-green-700 hover:text-green-900">🐦</a>
         <a href="#" className="text-green-700 hover:text-green-900">💼</a>
