@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import ContactForm from "../../components/ContactForm";
+import Header from "../../components/Header";
 
 export default function App() {
   const [images] = useState([
@@ -17,8 +18,9 @@ export default function App() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 font-sans">
-      {/* Header, Hero, About unverändert */}
+    <div className="min-h-screen bg-gray-100 text-gray-800 font-sans pt-20">
+      {/* Header */}
+      <Header />
 
       {/* Gallery */}
       <section id="gallery" className="max-w-6xl mx-auto py-16 px-4">
