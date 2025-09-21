@@ -1,9 +1,9 @@
 "use client";
 
-import Header from "../../components/Header";
-import HeroSection from "../../components/HeroSection";
-import GallerySection from "../../components/GallerySection";
-import TeamSection from "../../components/TeamSection";
+import Header from '../components/Header';
+import HeroSection from '../components/HeroSection';
+import GallerySection from '../components/GallerySection';
+import TeamSection from '../components/TeamSection';
 
 export default function App() {
   return (
