@@ -2,6 +2,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 
 export default function TeamSection() {
   const teamMembers = [
@@ -9,24 +10,24 @@ export default function TeamSection() {
       name: "Cle",
       role: "Herr der Satzung / Schriftführer",
       description: "Bändiger der Worte & Wortdompteur",
-      image: "/member1.jpg",
-      portrait: "/portrait1.jpg",
+      image: "/member1.JPG",
+      portrait: "/portrait1.JPG",
       links: ["🐦", "💼"]
     },
     {
       name: "Max",
       role: "Quästor & COC",
       description: "Finanzguru & Dämon der Nachtruhe",
-      image: "/member2.jpg",
-      portrait: "/portrait2.jpg",
+      image: "/member2.JPG",
+      portrait: "/portrait2.JPG",
       links: ["🐦", "💼"]
     },
     {
       name: "Ulf",
       role: "CTO (proudly)",
       description: "Chat-gpt wars.",
-      image: "/member3.jpg",
-      portrait: "/portrait3.jpg",
+      image: "/member3.JPG",
+      portrait: "/portrait3.JPG",
       links: ["🐦", "💼"]
     }
   ];
@@ -42,11 +43,16 @@ export default function TeamSection() {
             className="bg-white p-6 rounded-2xl shadow-md text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center"
           >
             {/* Kreisbild */}
-            <img
-              src={member.image}
-              alt={member.name}
-              className="w-40 h-40 rounded-full mb-4 object-cover border-4 border-green-700"
-            />
+            <div className="w-40 h-40 mb-4 relative rounded-full overflow-hidden border-4 border-green-700">
+              <Image
+                src={member.image}
+                alt={member.name}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
             <h4 className="font-bold text-2xl mb-1">{member.name}</h4>
             <p className="text-gray-500 text-sm mb-2">{member.role}</p>
             <p className="text-gray-700 text-sm">{member.description}</p>
@@ -62,12 +68,15 @@ export default function TeamSection() {
             <div className="flex-grow" />
 
             {/* Hochkant-Portrait */}
-            <img
-              src={member.portrait}
-              alt={`${member.name} Portrait`}
-              className="w-full mt-4 rounded-xl object-cover border-2 border-green-700"
-              style={{ height: "300px" }}
-            />
+            <div className="w-full mt-4 relative rounded-xl overflow-hidden border-2 border-green-700" style={{ height: "300px" }}>
+              <Image
+                src={member.portrait}
+                alt={`${member.name} Portrait`}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
           </div>
         ))}
       </div>
