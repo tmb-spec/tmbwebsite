@@ -15,7 +15,12 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
-      <div className="max-w-6xl mx-auto flex justify-end items-center p-4 md:p-6">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center p-4 md:p-6">
+        {/* Logo / Schriftzug */}
+        <div className="text-black font-bold text-xl md:text-2xl mb-2 md:mb-0 text-center md:text-left">
+          TassenMesserBande
+        </div>
+
         {/* Desktop Navigation */}
         <nav className="hidden md:flex gap-8">
           {navLinks.map((link) => (
@@ -30,7 +35,7 @@ export default function Header() {
         </nav>
 
         {/* Mobile Hamburger */}
-        <div className="md:hidden ml-4">
+        <div className="md:hidden flex justify-center w-full">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             className="focus:outline-none text-gray-800"
