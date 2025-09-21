@@ -10,6 +10,7 @@ export default function TeamSection() {
       name: "Cle",
       role: "Herr der Satzung / Schriftführer",
       description: "Bändiger der Worte & Wortdompteur",
+      lighterColor: "xzy",
       image: "/member1.JPG",
       portrait: "/portrait1.JPG",
       links: ["🐦", "💼"]
@@ -18,6 +19,7 @@ export default function TeamSection() {
       name: "Max",
       role: "Quästor & COC",
       description: "Finanzguru & Dämon der Nachtruhe",
+      lighterColor: "zyx",
       image: "/member2.JPG",
       portrait: "/portrait2.JPG",
       links: ["🐦", "💼"]
@@ -26,6 +28,7 @@ export default function TeamSection() {
       name: "Ulf",
       role: "CTO & It-Support",
       description: "Chat-gpt wars.",
+      lighterColor: "yxz",
       image: "/member3.JPG",
       portrait: "/portrait3.JPG",
       links: ["🐦", "💼"]
@@ -55,7 +58,11 @@ export default function TeamSection() {
 
             <h4 className="font-bold text-2xl mb-1">{member.name}</h4>
             <p className="text-gray-500 text-sm mb-2">{member.role}</p>
-            <p className="text-gray-700 text-sm">{member.description}</p>
+            <p className="text-gray-700 text-sm mb-2">{member.description}</p>
+
+            {/* Feuerzeugfarbe */}
+            <p className="text-gray-500 text-xs mb-2">Feuerzeugfarbe: {member.lighterColor}</p>
+
             <div className="flex justify-center gap-4 mt-3">
               {member.links.map((link, idx) => (
                 <a key={idx} href="#" className="text-green-700 hover:text-green-900">
