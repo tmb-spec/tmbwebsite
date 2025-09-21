@@ -1,4 +1,3 @@
-// components/TeamSection.tsx
 "use client";
 
 import React from "react";
@@ -37,7 +36,7 @@ export default function TeamSection() {
 
   return (
     <section id="team" className="max-w-6xl mx-auto py-16 px-4">
-      <h3 className="text-3xl font-bold mb-8 text-green-700 text-center">Das Team</h3>
+      <h3 className="text-3xl font-bold mb-8 text-emerald-400 text-center">Die Bois</h3>
       
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         {teamMembers.map((member, i) => (
@@ -46,7 +45,7 @@ export default function TeamSection() {
             className="bg-white p-6 rounded-2xl shadow-md text-center transform transition-transform duration-300 hover:scale-105 hover:shadow-xl flex flex-col items-center"
           >
             {/* Kreisbild */}
-            <div className="w-40 h-40 mb-4 relative rounded-full overflow-hidden border-4 border-green-700">
+            <div className="w-40 h-40 mb-4 relative rounded-full overflow-hidden border-4 border-emerald-500">
               <Image
                 src={member.image}
                 alt={member.name}
@@ -65,7 +64,7 @@ export default function TeamSection() {
 
             <div className="flex justify-center gap-4 mt-3">
               {member.links.map((link, idx) => (
-                <a key={idx} href="#" className="text-green-700 hover:text-green-900">
+                <a key={idx} href="#" className="text-emerald-400 hover:text-emerald-600">
                   {link}
                 </a>
               ))}
@@ -75,7 +74,7 @@ export default function TeamSection() {
             <div className="flex-grow" />
 
             {/* Hochkant-Portrait */}
-            <div className="w-full mt-4 relative rounded-xl overflow-hidden border-2 border-green-700" style={{ height: "300px" }}>
+            <div className="w-full mt-4 relative rounded-xl overflow-hidden border-2 border-emerald-500" style={{ height: "300px" }}>
               <Image
                 src={member.portrait}
                 alt={`${member.name} Portrait`}
