@@ -5,6 +5,7 @@ import HeroSection from '../components/HeroSection';
 import DonateSection from '../components/DonateSection';
 import GallerySection from '../components/GallerySection';
 import TeamSection from '../components/TeamSection';
+import EhrenmitgliederSection from '../components/EhrenmitgliederSection'; // NEU
 
 export default function App() {
   return (
@@ -24,6 +25,9 @@ export default function App() {
 
       {/* Team */}
       <TeamSection />
+
+      {/* Ehrenmitglieder */}
+      <EhrenmitgliederSection />  {/* NEU */}
 
     </div>
   );
