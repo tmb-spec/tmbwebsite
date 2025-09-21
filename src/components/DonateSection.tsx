@@ -12,7 +12,7 @@ export default function DonateSection() {
         href={donateLink}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-white text-green-700 font-bold text-2xl md:text-3xl py-4 px-10 md:px-16 rounded-full shadow-lg hover:bg-gray-100 transition"
+        className="bg-white text-emerald-400 font-bold text-2xl md:text-3xl py-4 px-10 md:px-16 rounded-full shadow-xl border-2 border-emerald-400 hover:bg-gray-100 transition transform hover:scale-105"
       >
         Donate
       </a>

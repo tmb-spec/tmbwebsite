@@ -20,7 +20,7 @@ export default function GallerySection() {
   return (
     <section id="gallery" className="max-w-6xl mx-auto py-16 px-4">
       <h3 className="text-3xl font-bold mb-6 text-green-700 text-center md:text-left">
-        Galerie
+        Epos in den Bergen
       </h3>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {images.map((img, i) => (
