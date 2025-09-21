@@ -1,21 +1,26 @@
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import Gallery from "../components/Gallery";
-import TeamSection from "../components/TeamSection";
-import HonorarySection from "../components/HonorarySection";
-import SpecialAwardsSection from "../components/SpecialAwardsSection";
-import ContactSection from "../components/ContactSection";
+"use client";
 
-export default function Page() {
+import Header from "../../components/Header";
+import HeroSection from "../../components/HeroSection";
+import GallerySection from "../../components/GallerySection";
+import TeamSection from "../../components/TeamSection";
+
+export default function App() {
   return (
     <div className="min-h-screen bg-gray-100 text-gray-800 font-sans pt-16">
+      
+      {/* Header */}
       <Header />
-      <Hero />
-      <Gallery />
+
+      {/* Hero */}
+      <HeroSection />
+
+      {/* Galerie */}
+      <GallerySection />
+
+      {/* Team */}
       <TeamSection />
-      <HonorarySection />
-      <SpecialAwardsSection />
-      <ContactSection />
+
     </div>
   );
 }
