@@ -13,6 +13,8 @@ export default function Header() {
     { label: "Kontakt", href: "#contact" },
   ];
 
+  const donateLink = "https://www.paypal.com/donate";
+
   return (
     <header className="fixed top-0 left-0 w-full bg-white shadow-md z-50">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center p-4 md:p-6">
@@ -21,18 +23,32 @@ export default function Header() {
           TassenMesserBande
         </div>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-gray-800 font-semibold hover:text-green-700 transition"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
+        {/* Desktop Navigation + Donate Button */}
+        <div className="hidden md:flex items-center gap-6">
+          <nav className="flex gap-8">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-gray-800 font-semibold hover:text-emerald-400 transition"
+              >
+                {link.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* Animate Donate Button mit Rand */}
+          <motion.a
+            href={donateLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-white text-emerald-400 font-bold py-2 px-6 rounded-full shadow-lg border-2 border-emerald-400 hover:shadow-xl hover:bg-gray-100 transition text-lg"
+            animate={{ scale: [1, 1.05, 1] }}
+            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+          >
+            Donate
+          </motion.a>
+        </div>
 
         {/* Mobile Hamburger */}
         <div className="md:hidden flex justify-center w-full">
@@ -62,12 +78,27 @@ export default function Header() {
                   <a
                     href={link.href}
                     onClick={() => setMenuOpen(false)}
-                    className="block text-gray-800 font-semibold hover:text-green-700 transition"
+                    className="block text-gray-800 font-semibold hover:text-emerald-400 transition"
                   >
                     {link.label}
                   </a>
                 </li>
               ))}
+              {/* Mobile Donate Button */}
+              <motion.li
+                animate={{ scale: [1, 1.05, 1] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              >
+                <a
+                  href={donateLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block bg-white text-emerald-400 font-bold py-2 px-6 rounded-full shadow-lg border-2 border-emerald-400 hover:shadow-xl hover:bg-gray-100 transition text-lg text-center"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Donate
+                </a>
+              </motion.li>
             </ul>
           </motion.nav>
         )}

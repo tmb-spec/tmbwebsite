@@ -1,16 +1,22 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
+import { useRef } from "react";
 
 export default function HeroSection() {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollY } = useScroll({ target: ref });
+  const y = useTransform(scrollY, [0, 300], [0, 50]); // Overlay leicht nach unten bewegen beim Scrollen
+
   return (
     <section
+      ref={ref}
       id="home"
       className="relative w-full flex flex-col md:flex-row items-center bg-gradient-to-br from-emerald-300 to-emerald-500 text-white h-auto md:h-[500px] py-16 md:py-0 overflow-hidden"
     >
       {/* Overlay Bild - volle Höhe des Hero nutzen */}
-      <div className="absolute inset-0">
+      <motion.div style={{ y }} className="absolute inset-0">
         <Image
           src="/overlay.png"
           alt="Overlay"
@@ -18,12 +24,17 @@ export default function HeroSection() {
           className="object-cover opacity-20"
           priority
         />
-      </div>
+      </motion.div>
 
       {/* Container mit Logo + Text */}
       <div className="relative z-10 flex flex-col md:flex-row items-center gap-40 px-6 md:px-12 w-full">
         {/* Logo */}
-        <div className="flex-shrink-0">
+        <motion.div
+          initial={{ scale: 0.8, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="flex-shrink-0"
+        >
           <Image
             src="/logo.png"
             alt="Tassenmesserbande Logo"
@@ -31,14 +42,19 @@ export default function HeroSection() {
             height={360}
             priority
           />
-        </div>
+        </motion.div>
 
         {/* Text */}
-        <div className="flex-1 text-center md:text-left">
+        <motion.div
+          initial={{ x: 50, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.2, delay: 0.3, ease: "easeOut" }}
+          className="flex-1 text-center md:text-left"
+        >
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
             className="text-4xl md:text-5xl font-extrabold mb-4 drop-shadow-lg"
           >
             einfach mal Mensch sein.
@@ -56,7 +72,7 @@ export default function HeroSection() {
           <p className="mt-4 text-base md:text-lg max-w-5xl mx-auto md:mx-0">
             Unser Name steht für das, was wir auf jeder Tour dabeihaben: eine Tasse, ein Messer und jede Menge Abenteuerlust.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
