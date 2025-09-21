@@ -26,7 +26,7 @@ export default function TeamSection() {
     },
     {
       name: "Ulf",
-      role: "CTO & It-Support",
+      role: "CTO & IT-Support",
       description: "Chat-gpt wars.",
       lighterColor: "yxz",
       image: "/member3.JPG",
