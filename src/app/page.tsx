@@ -2,6 +2,7 @@
 
 import Header from '../components/Header';
 import HeroSection from '../components/HeroSection';
+import EventsSection from '../components/EventsSection'; // <- neu
 import GallerySection from '../components/GallerySection';
 import TeamSection from '../components/TeamSection';
 import EhrenmitgliederSection from '../components/EhrenmitgliederSection';
@@ -19,6 +20,9 @@ export default function App() {
       {/* Hero */}
       <HeroSection />
 
+      {/* Events */}
+      <EventsSection />  {/* <- hier eingebaut */}
+
       {/* Galerie */}
       <GallerySection />
 
@@ -26,7 +30,7 @@ export default function App() {
       <TeamSection />
 
       {/* Ehrenmitglieder */}
-      <EhrenmitgliederSection />  {/* NEU */}
+      <EhrenmitgliederSection />
 
       {/* Die Becher */}
       <BecherSection />
@@ -35,7 +39,7 @@ export default function App() {
       <DonateSection />
 
       {/* To Top Button */}
-      <ToTopButton />  {/* <- hier einbauen */}
+      <ToTopButton />
     </div>
   );
 }
