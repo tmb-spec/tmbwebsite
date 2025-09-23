@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const router = useRouter();
 
   const navLinks = [
     { label: "Home", href: "#home" },
@@ -23,7 +25,7 @@ export default function Header() {
           TassenMesserBande
         </div>
 
-        {/* Desktop Navigation + Donate Button */}
+        {/* Desktop Navigation + Buttons */}
         <div className="hidden md:flex items-center gap-6">
           <nav className="flex gap-8">
             {navLinks.map((link) => (
@@ -37,7 +39,15 @@ export default function Header() {
             ))}
           </nav>
 
-          {/* Animate Donate Button mit Rand */}
+          {/* Dezenter Admin-Button */}
+          <button
+            onClick={() => router.push("/admin/login")}
+            className="bg-gray-200 text-gray-800 text-sm font-semibold py-1 px-3 rounded hover:bg-gray-300 transition"
+          >
+            Tassen Login
+          </button>
+
+          {/* Animate Donate Button */}
           <motion.a
             href={donateLink}
             target="_blank"
@@ -84,6 +94,20 @@ export default function Header() {
                   </a>
                 </li>
               ))}
+
+              {/* Mobile Admin Button */}
+              <li>
+                <button
+                  onClick={() => {
+                    router.push("/admin/login");
+                    setMenuOpen(false);
+                  }}
+                  className="w-full bg-gray-200 text-gray-800 text-sm font-semibold py-1 px-3 rounded hover:bg-gray-300 transition"
+                >
+                  Tassen Login
+                </button>
+              </li>
+
               {/* Mobile Donate Button */}
               <motion.li
                 animate={{ scale: [1, 1.05, 1] }}

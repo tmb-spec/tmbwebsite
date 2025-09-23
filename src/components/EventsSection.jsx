@@ -3,40 +3,16 @@
 import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { supabase } from "../lib/supabaseClient";
 
-const events = [
-  {
-    id: 1,
-    date: "25.09.2025",
-    title: "Bergwanderung",
-    location: "Alpen",
-    description: "Gemeinsame Wanderung mit Gipfelerlebnis und Picknick."
-  },
-  {
-    id: 2,
-    date: "10.10.2025",
-    title: "Workshop Holzbau",
-    location: "Hütte am Berg",
-    description: "Lerne Basics zum nachhaltigen Hüttenbau."
-  },
-  {
-    id: 3,
-    date: "05.11.2025",
-    title: "Herbstfest",
-    location: "Vereinsheim",
-    description: "Gemütliches Beisammensein mit Musik und Essen."
-  },
-];
-
-// Hilfsfunktion: String -> Date (ohne Uhrzeit)
+// Hilfsfunktionen unverändert
 function parseDate(dateStr) {
   const [day, month, year] = dateStr.split(".");
   const d = new Date(`${year}-${month}-${day}`);
-  d.setHours(0, 0, 0, 0); // auf Tagesanfang setzen
+  d.setHours(0, 0, 0, 0);
   return d;
 }
 
-// Hilfsfunktion: Heute ohne Uhrzeit
 function getToday() {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
@@ -46,32 +22,50 @@ function getToday() {
 export default function EventsSection() {
   const [activeTab, setActiveTab] = useState("upcoming");
   const [today, setToday] = useState(getToday());
+  const [events, setEvents] = useState([]);
 
-  // Aktualisiere "heute" einmal täglich nach Mitternacht
+  // Heute täglich updaten
   useEffect(() => {
     const updateToday = () => setToday(getToday());
-
-    // ms bis Mitternacht
     const midnight = new Date();
-    midnight.setHours(24, 0, 5, 0); // 5 Sekunden nach Mitternacht
+    midnight.setHours(24, 0, 5, 0);
     const msUntilMidnight = midnight.getTime() - Date.now();
 
     const timeout = setTimeout(() => {
       updateToday();
-      // danach alle 24h
       setInterval(updateToday, 24 * 60 * 60 * 1000);
     }, msUntilMidnight);
 
     return () => clearTimeout(timeout);
   }, []);
 
+  // Events aus Supabase laden
+  useEffect(() => {
+    const loadEvents = async () => {
+      const { data, error } = await supabase
+        .from("events")
+        .select("*")
+        .order("date", { ascending: true });
+
+      if (!error) {
+        // Datum als dd.mm.yyyy String formatieren
+        const formatted = data.map(e => ({
+          ...e,
+          date: new Date(e.date).toLocaleDateString("de-DE"),
+        }));
+        setEvents(formatted);
+      }
+    };
+    loadEvents();
+  }, []);
+
   // Events aufteilen
   const upcomingEvents = events
-    .filter(e => parseDate(e.date) >= today) // heute noch inklusive
+    .filter(e => parseDate(e.date) >= today)
     .sort((a, b) => parseDate(a.date) - parseDate(b.date));
 
   const pastEvents = events
-    .filter(e => parseDate(e.date) < today) // strikt kleiner
+    .filter(e => parseDate(e.date) < today)
     .sort((a, b) => parseDate(b.date) - parseDate(a.date));
 
   const displayedEvents = activeTab === "upcoming" ? upcomingEvents : pastEvents;
