@@ -1,11 +1,10 @@
-// src/app/admin/login/TassenLoginClient.jsx
-"use client";
+"use client"; // Ganz oben
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
-export default function TassenLoginClient() {
+export default function TassenLogin() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");

@@ -1,8 +1,7 @@
-// src/app/admin/login/page.jsx
-"use client";
+"use client"; // Ganz oben
 
-import TassenLoginClient from "./TassenLoginClient";
+import TassenLogin from "./TassenLoginClient";
 
 export default function Page() {
-  return <TassenLoginClient />;
+  return <TassenLogin />;
 }
