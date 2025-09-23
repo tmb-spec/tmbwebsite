@@ -1,17 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
-export default function AdminLogin() {
+export default function TassenLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  // Prüfen, ob bereits eine Session existiert
+  useEffect(() => {
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession();
+      if (data.session) {
+        router.push("/admin/dashboard");
+      } else {
+        setLoading(false);
+      }
+    };
+    checkSession();
+  }, [router]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError("");
 
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
@@ -20,10 +35,12 @@ export default function AdminLogin() {
 
     if (error) {
       setError(error.message);
-    } else {
+    } else if (data.session) {
       router.push("/admin/dashboard");
     }
   };
+
+  if (loading) return <p className="text-center mt-10">Lade...</p>;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
