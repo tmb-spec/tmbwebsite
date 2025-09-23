@@ -9,38 +9,42 @@ export default function TassenLogin() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Prüfen, ob bereits eine Session existiert
   useEffect(() => {
-    const checkSession = async () => {
-      const { data } = await supabase.auth.getSession();
-      if (data.session) {
-        router.push("/admin/dashboard");
-      } else {
+    (async () => {
+      try {
+        // Prüfen, ob bereits eine Session existiert
+        const { data: sessionData } = await supabase.auth.getSession();
+        if (sessionData.session) {
+          router.push("/admin/dashboard");
+          return;
+        }
         setLoading(false);
-      }
-    };
-    checkSession();
 
-    // Username aus Query übernehmen
-    const queryUsername = searchParams.get("username");
-    if (queryUsername) {
-      setUsername(queryUsername);
+        // Username aus Query übernehmen
+        const queryUsername = searchParams?.get?.("username");
+        if (queryUsername) {
+          setUsername(queryUsername);
 
-      // Prüfen, ob First Login nötig ist
-      supabase
-        .from("admins")
-        .select("email")
-        .eq("username", queryUsername)
-        .single()
-        .then(({ data, error }) => {
-          if (!error && data && !data.email) {
+          // Prüfen, ob First Login nötig ist
+          const { data: adminData } = await supabase
+            .from("admins")
+            .select("email")
+            .eq("username", queryUsername)
+            .single();
+
+          if (adminData && !adminData.email) {
             router.push(`/admin/first-login?username=${queryUsername}`);
           }
-        });
-    }
+        }
+      } catch (err) {
+        console.error("Fehler beim Login-Check:", err);
+        setLoading(false);
+      }
+    })();
   }, [router, searchParams]);
 
   const handleLogin = async (e) => {
