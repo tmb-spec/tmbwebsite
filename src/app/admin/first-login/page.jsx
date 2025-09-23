@@ -11,18 +11,22 @@ export default function FirstLogin() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [username, setUsername] = useState(null);
 
   const router = useRouter();
   const searchParams = useSearchParams();
-  const username = searchParams.get("username"); // Username aus URL
-
-  const allowedUsernames = ["admin1", "admin2", "admin3"]; // Feste Admin-Usernames
 
   useEffect(() => {
-    if (!username) {
-      router.push("/admin/login"); // kein Username -> zurück zur Login-Seite
+    // username erst clientseitig holen
+    const user = searchParams.get("username");
+    if (!user) {
+      router.push("/admin/login");
+    } else {
+      setUsername(user);
     }
-  }, [username, router]);
+  }, [searchParams, router]);
+
+  const allowedUsernames = ["admin1", "admin2", "admin3"];
 
   const handleFirstLogin = async (e) => {
     e.preventDefault();
@@ -42,7 +46,6 @@ export default function FirstLogin() {
     setLoading(true);
 
     try {
-      // Prüfen, ob Username schon existiert und first_login_done = true
       const { data: existing, error: fetchError } = await supabase
         .from("admins")
         .select("*")
@@ -61,7 +64,6 @@ export default function FirstLogin() {
         return;
       }
 
-      // Signup über Supabase Auth
       const { data, error: insertError } = await supabase.auth.signUp({
         email,
         password,
@@ -73,7 +75,6 @@ export default function FirstLogin() {
         return;
       }
 
-      // Admin-Tabelle aktualisieren
       if (existing) {
         await supabase
           .from("admins")
@@ -94,7 +95,7 @@ export default function FirstLogin() {
     }
   };
 
-  if (!username) return null; // kurzzeitig nichts rendern, bis Username verfügbar ist
+  if (!username) return <p className="text-center mt-10">Lade...</p>;
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
