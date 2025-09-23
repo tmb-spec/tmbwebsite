@@ -1,38 +1,45 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
 export default function FirstLogin() {
-  const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordRepeat, setPasswordRepeat] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const username = searchParams.get("username"); // Username aus URL
 
   const allowedUsernames = ["admin1", "admin2", "admin3"]; // Feste Admin-Usernames
+
+  useEffect(() => {
+    if (!username) {
+      router.push("/admin/login"); // kein Username -> zurück zur Login-Seite
+    }
+  }, [username, router]);
 
   const handleFirstLogin = async (e) => {
     e.preventDefault();
     setError("");
     setSuccess("");
-    setLoading(true);
 
     if (!allowedUsernames.includes(username)) {
       setError("Ungültiger Benutzername!");
-      setLoading(false);
       return;
     }
 
     if (password !== passwordRepeat) {
       setError("Passwörter stimmen nicht überein!");
-      setLoading(false);
       return;
     }
+
+    setLoading(true);
 
     try {
       // Prüfen, ob Username schon existiert und first_login_done = true
@@ -87,6 +94,8 @@ export default function FirstLogin() {
     }
   };
 
+  if (!username) return null; // kurzzeitig nichts rendern, bis Username verfügbar ist
+
   return (
     <div className="flex justify-center items-center h-screen bg-gray-200">
       <form
@@ -99,11 +108,9 @@ export default function FirstLogin() {
 
         <input
           type="text"
-          placeholder="Benutzername"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          className="w-full mb-4 p-2 border border-gray-600 rounded bg-gray-700 text-gray-100 placeholder-gray-400"
-          required
+          disabled
+          className="w-full mb-4 p-2 border border-gray-600 rounded bg-gray-700 text-gray-100"
         />
 
         <input
@@ -140,7 +147,9 @@ export default function FirstLogin() {
           type="submit"
           disabled={loading}
           className={`w-full py-2 rounded font-semibold transition ${
-            loading ? "bg-gray-400 cursor-not-allowed" : "bg-emerald-500 hover:bg-emerald-600"
+            loading
+              ? "bg-gray-400 cursor-not-allowed"
+              : "bg-emerald-500 hover:bg-emerald-600"
           }`}
         >
           {loading ? "Registriere..." : "Registrieren"}

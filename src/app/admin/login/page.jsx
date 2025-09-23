@@ -1,15 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
 export default function TassenLogin() {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   // Prüfen, ob bereits eine Session existiert
   useEffect(() => {
@@ -22,21 +23,55 @@ export default function TassenLogin() {
       }
     };
     checkSession();
-  }, [router]);
+
+    // Username aus Query übernehmen
+    const queryUsername = searchParams.get("username");
+    if (queryUsername) {
+      setUsername(queryUsername);
+
+      // Prüfen, ob First Login nötig ist
+      supabase
+        .from("admins")
+        .select("email")
+        .eq("username", queryUsername)
+        .single()
+        .then(({ data, error }) => {
+          if (!error && data && !data.email) {
+            router.push(`/admin/first-login?username=${queryUsername}`);
+          }
+        });
+    }
+  }, [router, searchParams]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setError("");
 
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
+    try {
+      // Username auf Email in Supabase-Tabelle "admins" nachschlagen
+      const { data, error: fetchError } = await supabase
+        .from("admins")
+        .select("email")
+        .eq("username", username)
+        .single();
 
-    if (error) {
-      setError(error.message);
-    } else if (data.session) {
-      router.push("/admin/dashboard");
+      if (fetchError || !data?.email) {
+        setError("Benutzername nicht gefunden oder First Login noch nicht abgeschlossen!");
+        return;
+      }
+
+      const { data: sessionData, error: loginError } = await supabase.auth.signInWithPassword({
+        email: data.email,
+        password,
+      });
+
+      if (loginError) {
+        setError(loginError.message);
+      } else if (sessionData.session) {
+        router.push("/admin/dashboard");
+      }
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -49,16 +84,17 @@ export default function TassenLogin() {
         className="bg-gray-800 p-8 rounded-lg shadow-lg w-80 text-gray-100"
       >
         <h2 className="text-2xl font-bold mb-6 text-center text-emerald-300">
-          Tassen Verifizierung
+          Admin Login
         </h2>
+
         <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          type="text"
+          placeholder="Benutzername"
+          value={username}
+          readOnly
           className="w-full mb-4 p-2 border border-gray-600 rounded bg-gray-700 text-gray-100 placeholder-gray-400"
-          required
         />
+
         <input
           type="password"
           placeholder="Passwort"
@@ -67,7 +103,9 @@ export default function TassenLogin() {
           className="w-full mb-4 p-2 border border-gray-600 rounded bg-gray-700 text-gray-100 placeholder-gray-400"
           required
         />
+
         {error && <p className="text-red-400 mb-4">{error}</p>}
+
         <button
           type="submit"
           className="w-full bg-emerald-500 hover:bg-emerald-600 py-2 rounded font-semibold transition"
