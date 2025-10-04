@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import TassenLoginClient from "./tassenloginclient"; // exakte Schreibweise beachten
+import TassenLoginClient from "./TassenLoginClient"; // exakte Schreibweise beachten
 
 export default function LoginPage() {
   return (
