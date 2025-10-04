@@ -16,14 +16,14 @@ export default function UsernameCheck() {
     setLoading(true);
 
     try {
-      // Prüfen, ob Username existiert in der "admins"-Tabelle
+      // Prüfen, ob Username existiert in der "admins"-Tabelle (case-insensitive)
       const { data, error: fetchError } = await supabase
         .from("admins")
         .select("*")
-        .eq("username", username)
-        .single();
+        .ilike("username", username)
+        .maybeSingle();
 
-      if (fetchError && fetchError.code !== "PGRST116") {
+      if (fetchError) {
         setError(fetchError.message);
         setLoading(false);
         return;
@@ -35,14 +35,8 @@ export default function UsernameCheck() {
         return;
       }
 
-      // Prüfen, ob Email schon hinterlegt ist → normaler Login
-      if (!data.email) {
-        // First Login: weiterleiten
-        router.push(`/admin/first-login?username=${username}`);
-      } else {
-        // Normal Login
-        router.push(`/admin/login?username=${username}`);
-      }
+      // Da Email bei allen null ist → immer First Login
+      router.push(`/admin/first-login?username=${username}`);
     } catch (err) {
       setError(err.message);
     } finally {
