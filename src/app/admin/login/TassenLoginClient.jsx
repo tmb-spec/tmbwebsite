@@ -1,14 +1,15 @@
-"use client"; // Ganz oben
+"use client";
 
 import { useState, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { supabase } from "../../../lib/supabaseClient";
 
-export default function TassenLogin() {
+export default function TassenLoginClient() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+
   const router = useRouter();
   const searchParams = useSearchParams();
 
