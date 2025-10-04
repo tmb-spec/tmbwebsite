@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import FirstLoginClient from "./firstloginclient";
+import FirstLoginClient from "./FirstLoginClient";
 
 export default function FirstLoginPage() {
   return (
