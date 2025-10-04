@@ -41,7 +41,7 @@ export default function Header() {
 
           {/* Dezenter Admin-Button */}
           <button
-            onClick={() => router.push("/admin/login")}
+            onClick={() => router.push("/admin/username-check")}
             className="bg-gray-200 text-gray-800 text-sm font-semibold py-1 px-3 rounded hover:bg-gray-300 transition"
           >
             Tassen Login
@@ -99,7 +99,7 @@ export default function Header() {
               <li>
                 <button
                   onClick={() => {
-                    router.push("/admin/login");
+                    router.push("/admin/username-check");
                     setMenuOpen(false);
                   }}
                   className="w-full bg-gray-200 text-gray-800 text-sm font-semibold py-1 px-3 rounded hover:bg-gray-300 transition"
